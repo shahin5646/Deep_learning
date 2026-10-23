@@ -1,0 +1,30 @@
+1
+Data — explore, clean, split
+Check class balance, corrupted files, duplicates. Split train/val/test before anything else. If your baseline later turns out ~random, you come back here first — that's a data problem, not a modeling one.
+2
+Preprocessing & augmentation
+Resize/normalize (use the pretrained model's own transforms once you know you're using one). Add augmentation only if needed, only on training data. Garbage in here means garbage everywhere downstream.
+3
+Baseline
+Majority-class predictor, or a pretrained model with zero fine-tuning. This is the number every later model must beat — and the fastest way to catch a data bug before you've wasted time training anything real.
+4
+Transfer learning (default architecture)
+Fine-tune a pretrained CNN with a frozen base and new head. Always start here — never custom-from-scratch first.
+5
+Custom CNN (fallback only)
+Only if transfer learning underperforms, your data looks nothing like natural photos, or you have a hard size/latency limit. This is an exception path, not step one.
+6
+Training loop + sanity check
+Build train/test step functions, then overfit a single batch to near-zero loss before trusting any full run. Never tune a model you haven't proven can actually learn.
+7
+Hyperparameter tuning
+Only after the sanity check passes. Learning rate first, always — before batch size, architecture width, or anything else.
+8
+Evaluate once, then ship
+Touch the test set exactly one time. Compare against your Step 3 baseline. If it wins, save and deploy.
+The four rules you wrote are the load-bearing logic of this whole thing, so here they are as standalone laws — worth memorizing separately from the steps themselves:
+
+Always start pretrained. Custom-from-scratch is an exception, never a default.
+Never tune a broken model. Overfit one batch first — if it can't, nothing downstream matters yet.
+Never tune before fixing data. No hyperparameter search survives bad labels or leakage.
+A near-random baseline means a data problem, not a model problem. Go back to Step 1, not Step 7.

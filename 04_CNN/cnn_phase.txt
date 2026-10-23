@@ -1,0 +1,20 @@
+The 2026 CNN Notebook Sequence — final version
+
+Problem & data understanding — know the dataset's origin and labeling process; define your success metric before writing any code
+EDA — class balance, corrupted files, duplicates; actually look at a grid of images per class
+Split the data — train/val/test, before anything else touches it
+Load the data — ImageFolder unless there's a real reason not to
+Preprocessing & augmentation — pretrained model's own transforms if applicable; augmentation only if needed, only on training data
+Baseline — majority-class predictor or zero-fine-tune pretrained model; the number everything else must beat
+Architecture decision — default to transfer learning; custom CNN only as a fallback if it underperforms or doesn't fit
+Loss, optimizer, learning rate — sane defaults, don't over-think this early
+Training loop — clean, functionized train_step / test_step
+Sanity check — overfit one batch before trusting any real run
+Train & validate — every epoch; never peek at the test set early
+Tune & iterate — one variable at a time, tracked, guided by validation errors, learning rate first
+Final evaluation — test set exactly once, per-class breakdown
+Save the model — state_dict() + metadata from the best checkpoint, verify it reloads correctly
+Inference — identical preprocessing to training, never training-time augmentation
+Deployment checklist — reproducibility, performance, size/latency, monitoring plan
+
+That's it — this is the same order as the notebook file I built you earlier (cnn_super_template_2026.ipynb), just with every checklist item now slotted into its exact place. Follow this top to bottom, on any dataset, and every decision point (baseline vs. skip, transfer vs. custom, when to tune) is already resolved by where it sits in the list.

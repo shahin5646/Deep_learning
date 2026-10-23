@@ -1,0 +1,12 @@
+now i have a problem .i want same template and code writing style  for cnn 2026 standard professional use.But Cnn has Custom ,own cnn ,pretrained,transfer learning ,Differents new architectures so i do not know how to organize those as a template and code must be easy to read ,structural and like this notebook.How can i approach step by step sequentially in 2026 to get a best result in any cnn dataset
+t it — 
+
+
+
+Short, single-purpose functions — each one does one obvious thing, so you can read the name and know what it does without opening it.
+No one-liner cleverness — no nested list comprehensions, no chained method calls that pack 3 operations into one line. If a line needs a comment to explain how it works, I'll break it into steps instead.
+Descriptive names over short names — neurons_per_layer not n, freeze_backbone not fb.
+Plain control flow — simple if/else, avoid **kwargs magic or overly generic/abstract wrappers unless the repetition it saves is very large.
+Comments explain why, not what — same as your original notebook (e.g. your note on autocast referencing "Section 22").
+Print statements at every major step — so running the notebook top to bottom narrates its own progress, like yours already does.
+
